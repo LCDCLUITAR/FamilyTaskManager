@@ -1,0 +1,15 @@
+#login-page{
+    background-color: aliceblue;
+}
+.login-btns{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+.login-btns .button-block{
+    margin: 0;
+}
+#login-logo{
+    width: 100%;
+}

@@ -1,16 +1,20 @@
-<ion-view title="Login" id="page5">
-  <ion-content padding="true" class="manual-remove-top-padding has-header" scroll="false">
-    <form id="login-form2" class="list">
-      <div class="spacer" style="width: 320px; height: 22px;"></div>
-      <label class="item item-input" id="login-input3" name="email">
-        <input type="email" placeholder="Email">
-      </label>
-      <label class="item item-input" id="login-input4" name="password">
-        <input type="password" placeholder="Password">
-      </label>
-    </form>
-    <div class="spacer" style="width: 320px; height: 22px;"></div>
-    <a ui-sref="createJoin()" id="login-button3" class="button button-positive button-block">Log in</a>
-    <a ui-sref="register()" id="login-button4" class="button button-positive button-block button-clear">Or create an account</a>
-  </ion-content>
+<ion-view title="Login" id="login-page" hide-nav-bar="true">
+    <ion-content padding="true" class="manual-remove-top-padding" scroll="false">
+        <div class="login-header">
+            <img id="login-logo" src="img/logo.png" />
+        </div>
+        <form id="login-form2" class="list">
+            <div class="spacer" style="width: 320px; height: 22px;"></div>
+            <label class="item item-input" id="login-input3" name="email">
+                <input type="email" placeholder="Email" ng-model="member.email" autocomplete="new-email">
+            </label>
+            <label class="item item-input" id="login-input4" name="password">
+                <input type="password" placeholder="Password" ng-model="member.password" autocomplete="new-password">
+            </label>
+        </form>
+        <div class="login-btns">
+            <a id="login-button3" class="button button-positive button-block" ng-click="login(member)">Log in</a>
+            <a ui-sref="register()" id="login-button4" class="button button-balanced button-block">Create Family Room</a>
+        </div>
+    </ion-content>
 </ion-view>

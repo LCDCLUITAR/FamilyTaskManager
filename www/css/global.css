@@ -24,3 +24,14 @@ ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidt
   list-style-type: decimal;
   padding-left:40px;
 }
+.loader{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    padding-top: 70%;
+    font-size: 1.6em;
+    color: yellow;
+}

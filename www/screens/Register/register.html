@@ -1,19 +1,48 @@
-<ion-view title="Register" id="page6">
-  <ion-content padding="true" class="has-header">
-    <form id="register-form3" class="list">
-      <ion-list id="register-list2">
-        <label class="item item-input" id="register-input5" name="name">
-          <input type="text" placeholder="Name">
-        </label>
-        <label class="item item-input" id="register-input6" name="email">
-          <input type="email" placeholder="Email">
-        </label>
-        <label class="item item-input" id="register-input7" name="password">
-          <input type="password" placeholder="Password">
-        </label>
-      </ion-list>
-      <button id="register-button5" class="button button-positive button-block">Sign up</button>
-    </form>
-    <a ui-sref="login()" id="register-button6" class="button button-positive button-block button-clear">Or login</a>
-  </ion-content>
+<ion-view title="Create Family Room" id="page6">
+    <ion-content padding="true" class="has-header">
+        <form id="register-form3" class="list" ng-if="navState == 'family'">
+            <ion-list id="register-list2">
+                <label class="item item-input" id="register-input5" name="name">
+                    <input ng-model="familyRoom.name" type="text" placeholder="Family Name" autocomplete="new-name">
+                </label>
+                <label class="item item-input" id="register-input7" name="password">
+                    <input ng-model="familyRoom.password" type="password" placeholder="Password" autocomplete="new-password">
+                </label>
+                <label class="item item-input" id="register-input7" name="password">
+                    <input ng-model="familyRoom.password2" type="password" placeholder="Confirm Password" autocomplete="new-password">
+                </label>
+            </ion-list>
+        </form>
+        <form id="profileForm" class="list" ng-if="navState == 'profile'">
+            <ion-list id="register-list2" ng-repeat="member in family">
+                <div ng-class="($index > 0) ? 'col-xs-1' : ''" class="r-circle-container" ng-if="$index != 0">
+                    <i class="remove-circle fas fa-minus-circle" ng-click="removeFamMember($index)"></i>
+                </div>
+                <div ng-class="($index > 0) ? 'col-xs-10' : ''" class="form-profile">
+                    <label class="item item-input" id="register-input5" name="name">
+                        <input ng-model="member.name" type="text" placeholder="Name" autocomplete="new-name">
+                    </label>
+                    <label class="item item-input" id="register-input6" name="email">
+                        <input ng-model="member.email" type="email" placeholder="Email" autocomplete="new-email">
+                    </label>
+                    <label class="item item-input" id="register-input7" name="password" ng-if="$index == 0">
+                        <input ng-model="member.password" type="password" placeholder="Password" autocomplete="new-password">
+                    </label>
+                    <label class="item item-input" id="register-input7" name="role">
+                        <input ng-model="member.role" type="text" placeholder="Family Role" autocomplete="new-password">
+                    </label>
+                </div>
+            </ion-list>
+            <div class="row">
+                <i class="add-circle fas fa-plus-circle" ng-click="addFamMember()"></i>
+            </div>
+            <div class="row">
+                <span class="additional-add">Add another family member!</span>
+            </div>
+        </form>
+        <div class="register-btns col-xs-12">
+            <button id="register-button5" class="col-xs-6 button button-assertive" ng-click="nav('prev', navState)">Cancel</button>
+            <button id="register-button6" class="col-xs-6 button button-positive" ng-click="nav('next', navState)">Next</button>
+        </div>
+    </ion-content>
 </ion-view>
