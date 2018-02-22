@@ -200,6 +200,9 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
     }
     this.logout = function(){
 		firebase.auth().signOut().then(function() {
+            logged = false;
+            member = {};
+            ownerPassed = false;
   			$state.go('login');
 		}, function(error) {
 			msgService.showError("An error occurred while logging out");
