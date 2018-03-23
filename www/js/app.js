@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives', 'app.factories',])
+angular.module('app', ['ionic', 'app.directives', 'app.factories', 'app.controllers', 'app.routes', 'as.sortable', 'ion-datetime-picker',])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
 
@@ -76,4 +76,4 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 });
 var controller = angular.module('app.controllers', []);
 var directive = angular.module('app.directives', []);
-var factory = angular.module('app.factories', []);
+var factory = angular.module('app.factories', ['firebase']);

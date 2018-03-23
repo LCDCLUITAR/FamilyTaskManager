@@ -1,0 +1,44 @@
+.register-btns{
+    position: relative !important;
+    left: 0;
+    bottom: 0;
+}
+.remove-circle{
+    font-size: 20px;
+    color: red;
+    left: 0;
+    position: absolute;
+}
+.r-circle-container {
+    position: relative;
+    margin-top: 80px;
+}
+.add-circle{
+    font-size: 30px;
+    color: green;
+    margin-top: 20px;
+    text-align: center;
+    display: block !important;
+    width: 100%;
+}
+.additional-add{
+    text-align: center !important;
+    color: green;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}
+#profileForm .form-profile{
+    padding: 0;
+}
+.label-container{
+    position: relative;
+}
+.label-container .fa{
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    z-index: 2;
+    font-size: 15px;
+    cursor: pointer;
+}

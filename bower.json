@@ -3,5 +3,11 @@
   "private": "true",
   "devDependencies": {
     "ionic": "ionic-team/ionic-bower#1.3.4"
+  },
+  "dependencies": {
+    "ng-sortable": "^1.3.8",
+    "jquery": "^3.3.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "ion-datetime-picker": "^0.5.2"
   }
 }

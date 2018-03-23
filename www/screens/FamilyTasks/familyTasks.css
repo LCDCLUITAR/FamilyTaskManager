@@ -1,0 +1,257 @@
+.searchbox{
+    position: relative;
+    height: 2em;
+    border-radius: 0.4em;
+    border: 1px solid #000;
+    width: 85%;
+    margin: 5px auto;
+}
+.searchbox .fa-search{
+    position: absolute;
+    font-size: 1.2em;
+    color: #909090;
+    top: 5px;
+    left: 5px;
+}
+.searchbox .searchbox-tasks{
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    width: calc(100% - 25px);
+    height: 100%;
+    left: 25px;
+}
+#FamilyTasks, #PersonalTasks{
+    padding: 0 0 5px 0;
+    height: auto;
+    position: relative;
+}
+#FamilyTasks .task-toggler, #PersonalTasks .task-toggler{
+    border-bottom: 1px solid #2a6598;
+    width: 95%;
+    height: 24px;
+    position: relative;
+    color: #2a6598;
+    font-weight: 700;
+    margin: 0 auto;
+}
+#FamilyTasks .tasksTitle, #PersonalTasks .tasksTitle{
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    bottom: 0;
+    margin: 0;
+}
+#FamilyTasks .tasksLeft, #PersonalTasks .tasksLeft{
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    margin: 0;
+}
+#FamilyTasks .fa-caret-down, #FamilyTasks .fa-caret-up, #PersonalTasks .fa-caret-down, #PersonalTasks .fa-caret-up{
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    font-size: 20px;
+}
+.task{
+    position: relative;
+    height: auto;
+}
+.task-open{
+    border: 2px solid #000 !important;
+}
+.task:nth-child(odd){
+    background-color: #fff;
+}
+.task:nth-child(even){
+    background-color: aliceblue;
+}
+.task-label{
+    width: 100%;
+    height: 3em;
+}
+.task-label .fa-bars{
+    position: absolute;
+    top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    left: 10px;
+}
+.task-label .fa-check-circle{
+    position: absolute;
+    top: 7px;
+    font-size: 25px;
+    color: white;
+    background-color: green;
+    border: 1px solid green;
+    border-radius: 50%;
+    font-weight: 700;
+    left: 45px;
+}
+.task-label .title-subtitle{
+    position: absolute;
+    font-weight: 700;
+    top: 5px;
+    left: 90px;
+}
+.task-label .title-subtitle .subtitle1, .task-label .title-subtitle .subtitle2{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.task-label .title-subtitle .subtitle2{
+    color: green;
+}
+.task-label button{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 10px;
+    padding: 5px;
+}
+.task-content{
+    position: relative;
+    margin: 5px 10px;
+    border-top: 1px solid #000;
+}
+.task-content .notifications .complete{
+    color: green;
+    font-weight: 700;
+}
+.task-content .notifications .incomplete{
+    color: red;
+    font-weight: 700;
+}
+.task-content .notifications .dueDate{
+    color: red;
+    position: absolute;
+    top: 12px;
+    word-wrap: break-word;
+    width: 50%;
+    text-align: right;
+    font-size: 12px;
+    right: 33px;
+}
+.task-content .notifications .fa-clock{
+    border: 2px solid red;
+    background-color: red;
+    color: aliceblue;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    font-size: 16px;
+}
+.btn-label{
+    margin-top: 10px;
+    font-size: 10px !important;
+    padding: 1px 5px !important;
+    margin-right: 3px;
+}
+.btn-label:last-child{
+    margin-right: 0;
+}
+.task-content .assigned{
+    margin-top: 10px;
+    font-weight: 700;
+}
+.member-img{
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+}
+.task-content .notes{
+    font-weight: 700;
+}
+.task-content .notes .note-text{
+    font-weight: 200;
+    text-decoration: underline;
+    font-size: 12px;
+}
+#addTasks{
+    position: sticky;
+    float: right;
+    top: 83% !important;
+    right: 20px;
+    background-color: forestgreen;
+    border-radius: 50%;
+    padding: 15px;
+    color: aliceblue;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 2;
+}
+#addTaskModal{
+    top: 35px;
+    width: 100%;
+    position: absolute;
+    z-index: 999 !important;
+}
+.taskLabel{
+    width: 30%;
+}
+.taskLabel-justified{
+    width: 86%;
+}
+.members{
+    display: inline-block;
+    text-align: center;
+}
+.members .member-name{
+    margin: 3px 0;
+    font-size: 9px;
+}
+.members .member-img{
+    margin: 0 5px;
+}
+.members .member-img:last-child{
+    margin-right: 0;
+}
+.bottomline-input{
+    display: inline-block !important;
+    height: 30px !important;
+    width: calc(100% - 40%) !important;
+    border: none !important;
+    border-bottom: 1px solid dodgerblue !important;
+}
+.taskLabels .btn-label .fa-times{
+    margin-left: 8px;
+}
+.btn-points{
+    padding: 0 5px !important;
+}
+.textArea{
+    width: 100%;
+    border: 1px solid black;
+    resize: none;
+    padding: 5px;
+}
+.btn-other{
+    width: 70px;
+    height: 22px !important;
+    margin: 0;
+    display: inline-block !important;
+    color: aliceblue !important;
+}
+.btn-other::placeholder{
+    color: aliceblue;
+}
+.mSel{
+    background-color: #1eff0042;
+}
+.circle-checked{
+    color: green !important;
+    background-color: white !important;
+    border: 1px solid white !important;
+}
+.taskType{
+    position: relative;
+    margin-top: 5px;
+}
+input[name="taskType"]{
+    height: 20px !important;
+    width: 60px !important;
+    position: absolute;
+    top: 0px;
+    left: 120px;
+}

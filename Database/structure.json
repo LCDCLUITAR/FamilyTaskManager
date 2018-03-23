@@ -1,0 +1,157 @@
+{
+    "Members":[
+        {
+            "ID": "11111",
+            "Name": "Luis Chaparro",
+            "Photo": "profile-pic.jpg",
+            "MemberSince": "01/01/1990",
+            "Points": 0,
+            "Families": [
+                {
+                    "ID": "123456",
+                    "Notifications": true
+                }
+            ]
+        }
+    ],
+    "Messages":[
+        {
+            "FamilyID":"123456",
+            "Message":[
+                {
+                    "FromUserID": "11111",
+                    "Timestamp": 458796354,
+                    "Content": "This is a message from 11111",
+                    "LikedBy":[
+                        {
+                            "UserID": "11111"
+                        },
+                        {
+                            "UserID": "111112"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "Families":[
+        {
+            "ID": "123456",
+            "FamilyName": "Chaparro Fam",
+            "FamilyCode": "P@ssw0rd1",
+            "Roles":[
+                {
+                    "Role": "Owner",
+                    "Permisions":{
+                        "FamilyDeletion": true,
+                        "Add": true,
+                        "Delete": true,
+                        "Edit": true,
+                        "CanAssign": true
+                    }
+                },
+                {
+                    "Role": "Admin",
+                    "Permisions":{
+                        "FamilyDeletion": false,
+                        "Add": true,
+                        "Delete": true,
+                        "Edit": true,
+                        "CanAssign": true
+                    }
+                },
+                {
+                    "Role": "Member",
+                    "Permisions":{
+                        "FamilyDeletion": false,
+                        "Add": false,
+                        "Delete": false,
+                        "Edit": false,
+                        "CanAssign": false
+                    }
+                }
+            ],
+            "FamilyMembers": [
+                {
+                    "ID": "11111",
+                    "Email": "luis@live.com",
+                    "Points": 0,
+                    "Role": "Owner"
+                },
+                {
+                    "ID": "11112",
+                    "Email": "luis@live.com",
+                    "Points": 0,
+                    "Role": "Admin"
+                },
+                {
+                    "ID": "11113",
+                    "Email": "luis@live.com",
+                    "Points": 0,
+                    "Role": "Member"
+                }
+            ]
+        },
+        {
+
+        }
+    ],
+    "Tasks":[
+        {
+            "FamilyID": "123456",
+            "Tasks":[
+                {
+                    "Labels": [
+                        {"Name": "Label1"},
+                        {"Name": "Label2"}
+                    ],
+                    "VisibleTo":{
+                        "Owner": true,
+                        "Admin": true,
+                        "Member": true
+                    },
+                    "Completed": false,
+                    "CompletedBy:": "None",
+                    "CompletedDate": "0",
+                    "TaskName": "Task1",
+                    "TaskDueDate": "01/01/1999",
+                    "PointsWorth": 100,
+                    "AssignedTo": [
+                        {
+                            "UserID": "11111"
+                        },                        
+                        {
+                            "UserID": "111112"
+                        }
+                    ],
+                    "CreatedBy": "Luis Chaparro",
+                    "Photo": "pic-placeholder.jpg",
+                    "Notes": "This is a note",
+                    "Repeat": "Weekly"                    
+                },
+                {
+
+                }
+            ]
+        }
+    ],
+    "MyTasks":[
+        {
+            "UserID": "11111",
+            "Tasks":[
+                {
+                    "Completed": false,
+                    "CompletedDate": "0",
+                    "TaskName": "Task1",
+                    "TaskDueDate": "01/01/1999",
+                    "Photo": "pic-placeholder.jpg",
+                    "Notes": "This is a note",
+                    "Repeat": "Weekly"          
+                },
+                {
+
+                }
+            ]
+        }
+    ]
+}
