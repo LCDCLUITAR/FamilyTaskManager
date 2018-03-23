@@ -1,4 +1,4 @@
-angular.module('app', ['ionic', 'app.directives', 'app.factories', 'app.controllers', 'app.routes',])
+angular.module('app', ['ionic', 'app.directives', 'app.factories', 'app.controllers', 'app.routes', 'as.sortable', 'ion-datetime-picker',])
 
 .config(function($ionicConfigProvider, $sceDelegateProvider){
 

@@ -1,4 +1,4 @@
-<ion-view title="Family Tasks" id="page8">
+<ion-view title="Personal Tasks" id="page11">
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="profile()" class="button button-icon icon ion-android-person"></button>
     </ion-nav-buttons>
@@ -6,21 +6,171 @@
         <button ui-sref="settings()" class="button button-icon icon ion-ios-cog-outline"></button>
     </ion-nav-buttons>
     <ion-content padding="false" class="manual-remove-top-padding has-header">
-        <button id="familyTasks-button12" style="text-align:right;" class="button button-calm button-small button-block">Tasks Completed ( 4/25 ) </button>
-        <form id="familyTasks-form6" class="list">
-            <ion-checkbox id="familyTasks-checkbox2">Checkbox</ion-checkbox>
-            <ion-checkbox id="familyTasks-checkbox3">Checkbox</ion-checkbox>
-            <ion-checkbox id="familyTasks-checkbox4">Checkbox</ion-checkbox>
-        </form>
-        <button id="familyTasks-button13" style="text-align:right;" class="button button-calm button-small button-block">To Do ( 25 ) </button>
-        <form id="familyTasks-form7" class="list">
-            <ion-checkbox id="familyTasks-checkbox5">Checkbox</ion-checkbox>
-            <ion-checkbox id="familyTasks-checkbox6">Checkbox</ion-checkbox>
-            <ion-checkbox id="familyTasks-checkbox7">Checkbox</ion-checkbox>
-            <ion-item class="item-avatar" id="familyTasks-list-item6">
-                <h2>Item</h2>
-                <ion-option-button class="button-energized">Add Note</ion-option-button>
-            </ion-item>
-        </form>
+        <div class="btn-group btn-group-justified">
+            <a ng-class="tabNav.isTab('task') ? 'active' : ''" ng-click="tabNav.setTab('task')" class="btn btn-primary">Tasks</a>
+            <a ng-class="tabNav.isTab('completed') ? 'active' : ''" ng-click="tabNav.setTab('completed')" class="btn btn-primary">Completed</a>
+        </div>
+        <div class="searchbox">
+            <i class="fa fa-search"></i>
+            <input class="searchbox-tasks" type="text" placeholder="Search by task, label or member..." name="search">
+        </div>
+        <div  id="FamilyTasks" as-sortable="dragF" ng-model="tasksF">
+            <div class="task-toggler" ng-click="toggleFtasks = !toggleFtasks">
+                <h5 class="tasksTitle">Family Tasks</h5>
+                <span class="tasksLeft">{{getIncomplete(tasksF)}} out of {{tasksF.length}}</span>
+                <i ng-class="toggleFtasks ? 'fa-caret-down' : 'fa-caret-up'" class="fa"></i>
+            </div>
+            <div ng-show="toggleFtasks" ng-class="showMore ? 'task-open' : ''" class="task" as-sortable-item ng-repeat="task in tasksF | filter:{Completed: tabNav.isTab('completed')}">
+                <div class="task-label">
+                    <i class="fa fa-bars" as-sortable-item-handle></i>
+                    <i class="fa fa-check-circle"
+                        ng-class="task.Completed ? 'circle-checked' : ''"
+                        ng-click="taskComplete(task.ID, 'tasksF')"></i>
+                    <div class="title-subtitle">
+                        <h4 class="subtitle1">{{task.TaskName}}</h4>
+                        <h6 class="subtitle2">{{task.PointsWorth}} Points</h6>
+                    </div>
+                    <button type="button" ng-click="showMore = !showMore" class="btn btn-outline-info">Show {{showMore ? 'less' : 'more'}}</button>                </div>
+                <div class="task-content" ng-show="showMore">
+                    <div class="notifications">
+                        <h4 class="complete" ng-show="task.Completed">Completed</h4>
+                        <h4 class="incomplete" ng-show="!task.Completed">Incomplete</h4>
+                        <span class="dueDate">Due on {{task.TaskDueDate}}</span>
+                        <i class="fa fa-clock"></i>
+                    </div>
+                    <div class="labels">
+                        <button ng-repeat="label in task.Labels" class="btn btn-info btn-label">{{label.Name}}</button>
+                    </div>
+                    <div class="assigned">
+                        Assigned to:<br />
+                        <!--<img ng-repeat="member in task.AssignedTo" class="member-img" src="http://via.placeholder.com/350x150"/>-->
+                        <div ng-repeat="member in task.AssignedTo" class="members">
+                            <img class="member-img" src="http://via.placeholder.com/350x150"/>
+                            <h6 class="member-name">{{member.Name.split(' ')[0]}}</h6>
+                        </div>
+                    </div>
+                    <div class="notes">
+                        Notes:<br />
+                        <div class="note-text">
+                            {{task.Notes}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="PersonalTasks" as-sortable="dragP" ng-model="tasksP">
+            <div class="task-toggler"ng-click="togglePtasks = !togglePtasks">
+                <h5 class="tasksTitle">Personal Tasks</h5>
+                <span class="tasksLeft">{{getIncomplete(tasksP)}} out of {{tasksP.length}}</span>
+                <i ng-class="togglePtasks ? 'fa-caret-down' : 'fa-caret-up'" class="fa"></i>
+            </div>
+            <div ng-show="togglePtasks" ng-class="showMore ? 'task-open' : ''" class="task" as-sortable-item ng-repeat="task in tasksP | filter:{Completed: tabNav.isTab('completed')}">
+                <div class="task-label">
+                    <i class="fa fa-bars" as-sortable-item-handle></i>
+                    <i class="fa fa-check-circle"
+                        ng-class="task.Completed ? 'circle-checked' : ''"
+                        ng-click="taskComplete(task.ID, 'tasksP')"></i>></i>
+                    <div class="title-subtitle">
+                        <h4 class="subtitle1">{{task.TaskName}}</h4>
+                    </div>
+                    <button type="button" ng-click="showMore = !showMore" class="btn btn-outline-info">Show {{showMore ? 'less' : 'more'}}</button>                </div>
+                <div class="task-content" ng-show="showMore">
+                    <div class="notifications">
+                        <h4 class="complete" ng-if="task.Completed">Complete</h4>
+                        <h4 class="incomplete" ng-if="!task.Completed">Incomplete</h4>
+                        <span class="dueDate">Due on {{task.TaskDueDate}}</span>
+                        <i class="fa fa-clock"></i>
+                    </div>
+                    <div class="labels">
+                        <button ng-repeat="label in task.Labels" class="btn btn-info btn-label">{{label.Name}}</button>
+                    </div>
+                    <div class="notes">
+                        Notes:<br />
+                        <div class="note-text">
+                            {{task.Notes}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="addTaskModal" ng-show="addTaskModal">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <i class="fa fa-times close" ng-click="toggleModal(false)"></i>
+                        <h4 class="modal-title">Add a task</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="taskName">
+                            <i class="i-icon i-check fa fa-check-square text-success"></i>
+                            <label class="taskLabel" for="taskName">Task Name:</label>
+                            <input required type="text" class="bottomline-input" name="taskName" ng-model="newTask.TaskName" autocomplete="new-name"/>
+                        </div>
+                        <div ng-if="::isAdmin()" class="taskAssign">
+                            <i class="i-icon i-users fa fa-users"></i>
+                            <label class="taskLabel-justified" for="taskAssign">Assign:</label>
+                            <div ng-repeat="member in family"
+                                ng-class="(member.assigned) ? 'mSel' : ''" class="members"
+                                ng-click="addAssigned(member); member.assigned = !member.assigned">
+                                <img class="member-img" src="http://via.placeholder.com/350x150"/>
+                                <h6 class="member-name">{{member.Name.split(' ')[0]}}</h6>
+                            </div>
+                        </div>
+                        <div class="taskDate">
+                            <i class="i-icon i-calendar fa fa-calendar"></i>
+                            <label class="taskLabel" for="taskDate">Due Date:</label>
+                            <div ion-datetime-picker am-pm only-valid="{'after': 'today', 'inclusive': true}" title="['Pick a due date and time!']"
+                                class="bottomline-input form-control" name="taskDate"
+                                ng-model="newTask.TaskDueDate" autocomplete="new-date">{{newTask.TaskDueDate | date: "MM-dd-yy, h:mm a"}}</div>
+                        </div>
+                        <div class="taskRepeat">
+                            <i class="i-icon i-refresh fa fa-sync"></i>
+                            <label class="taskLabel" for="taskRepeat">Repeat:</label>
+                            <select class="bottomline-input" ng-model="newTask.Repeat" name="taskRepeat" autocomplete="new-repeat">
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                            </select>
+                        </div>
+                        <div class="taskLabels">
+                            <i class="i-icon i-tag fa fa-tag"></i>
+                            <label class="taskLabel" for="taskLabels">Labels:</label>
+                            <input type="text"
+                                ng-blur="labelsArr = addLabel({keyCode:32}, labelsArr)"
+                                ng-keypress="labelsArr = addLabel($event, labelsArr)"
+                                ng-model="labelsArr" class="bottomline-input" name="taskLabels" autocomplete="new-label"/>
+                            <button type="button"
+                                    class="btn-label btn btn-info"
+                                    ng-repeat="label in newTask.Labels track by $index"
+                                    ng-click="removeLabel($index)">{{label.Name}}<i class="fa fa-times"></i></button>
+                        </div>
+                        <div ng-if="::isAdmin()" class="taskPoints">
+                            <i class="i-icon i-trophy fa fa-trophy"></i>
+                            <label class="taskLabel" for="taskPoints" style="margin-top:10px">Points:</label>
+                            <button type="button" ng-click="newTask.PointsWorth = 10" class="btn-points btn btn-success">10</button>
+                            <button type="button" ng-click="newTask.PointsWorth = 50" class="btn-points btn btn-success">50</button>
+                            <button type="button" ng-click="newTask.PointsWorth = 100" class="btn-points btn btn-success">100</button>
+                            <input type="number" ng-change="newTask.PointsWorth = otherPoints" ng-model="otherPoints" class="btn-points btn btn-success btn-other" placeholder="Other"/>
+                        </div>
+                        <div class="taskType">
+                            <i class="i-icon i-users fa fa-user text-success"></i>
+                            <label class="taskType" for="taskType">Personal Task?:</label>
+                            <input required type="checkbox" ng-disabled="!isAdmin()" class="bottomline-input" name="taskType" ng-model="newTask.PersonalTask" autocomplete="new-type"/>
+                        </div>
+                        <div class="taskNotes">
+                            <i class="i-icon i-notes fa fa-sticky-note"></i>
+                            <label class="taskLabel" for="taskNotes">Notes:</label>
+                            <textarea rows="4" class="textArea" ng-model="newTask.Notes" name="taskNotes" autocomplete="new-notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="addTask(newTask)">Add</button>
+                        <button type="button" class="btn btn-default" ng-click="toggleModal(false)">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ion-content>
+    <i id="addTasks" class="fa fa-plus" ng-click="toggleModal(true)"></i>
 </ion-view>

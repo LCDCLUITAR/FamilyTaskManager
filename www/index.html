@@ -10,6 +10,7 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="js/Vendor/dist/sweetalert.css" rel="stylesheet"/>
     <!-- My css -->
+    <link href="css/global.css" rel="stylesheet">
     <link href="screens/Calendar/calendar.css" rel="stylesheet">
     <link href="screens/CreateJoin/createJoin.css" rel="stylesheet">
     <link href="screens/FamilyTasks/familyTasks.css" rel="stylesheet">
@@ -21,11 +22,19 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/bootstrap/bootstrap-theme.min.css" rel="stylesheet" />
-
-    <!-- Font awesome -->
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-    <script src="js/Vendor/dist/sweetalert.min.js"></script>
+    <!-- VENDORS -->
+        <!-- Font awesome -->
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <!-- Ng-Sortable -->
+        <script type="text/javascript" src="lib/ng-sortable/dist/ng-sortable.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="lib/ng-sortable/dist/ng-sortable.min.css">
+        <!--Sweetalert-->
+        <script src="js/Vendor/dist/sweetalert.min.js"></script>
+        <!--Jquery-->
+        <script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <!-- Datetimepicker -->
+        <script src="lib/ion-datetime-picker/release/ion-datetime-picker.min.js"></script>
+        <link href="lib/ion-datetime-picker/release/ion-datetime-picker.min.css" rel="stylesheet">
 
     <script src="js/app.js"></script>
     <!-- AngularFire -->
@@ -37,6 +46,7 @@
     <!-- Factories -->
     <script src="js/msgService.js"></script>
     <script src="js/authService.js"></script>
+    <script src="js/safeApply.js"></script>
     <!-- Screen Controllers -->
     <script src="screens/Login/login.js"></script>
     <script src="screens/Register/register.js"></script>

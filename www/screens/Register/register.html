@@ -5,12 +5,18 @@
                 <label class="item item-input" id="register-input5" name="name">
                     <input ng-model="familyRoom.name" type="text" placeholder="Family Name" autocomplete="new-name">
                 </label>
-                <label class="item item-input" id="register-input7" name="password">
-                    <input ng-model="familyRoom.password" type="password" placeholder="Password" autocomplete="new-password">
-                </label>
-                <label class="item item-input" id="register-input7" name="password">
-                    <input ng-model="familyRoom.password2" type="password" placeholder="Confirm Password" autocomplete="new-password">
-                </label>
+                <div class="label-container">
+                    <label class="item item-input" id="register-input7" name="password">
+                        <input ng-attr-type="{{ showPass ? 'text' : 'password' }}" ng-model="familyRoom.password" placeholder="Password" autocomplete="new-password">
+                    </label>
+                    <span ng-show="familyRoom.password" ng-click="showPass = !showPass" ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'" class="fa"></span>
+                </div>
+                <div class="label-container">
+                    <label class="item item-input" id="register-input7" name="password">
+                        <input ng-attr-type="{{ showPass2 ? 'text' : 'password' }}" ng-model="familyRoom.password2" placeholder="Confirm Password" autocomplete="new-password">
+                    </label>
+                    <span ng-show="familyRoom.password2" ng-click="showPass2 = !showPass2" ng-class="showPass2 ? 'fa-eye-slash' : 'fa-eye'" class="fa"></span>
+                </div>
             </ion-list>
         </form>
         <form id="profileForm" class="list" ng-if="navState == 'profile'">

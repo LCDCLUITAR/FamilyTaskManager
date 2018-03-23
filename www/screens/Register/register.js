@@ -23,6 +23,9 @@ controller.controller('registerCtrl', function ($scope, $stateParams, $state, au
         view:{
             init: function(){
                 /***Variables***/
+                // Bool for showing password
+                $scope.showPass = false;
+                $scope.showPass2 = false;
                 // States in registration process (Used for cancel and next navigation)
                 $scope.navState = 'family';
                 // Holds family room info
@@ -50,7 +53,7 @@ controller.controller('registerCtrl', function ($scope, $stateParams, $state, au
                     else if(direction == 'next' && state == "family"){
                         // Check if family info is set and passwords match
                         if(!$scope.registerCtrl.controller.actions.checkNames($scope.familyRoom.name, 2)){
-                            msgService.showWarn("Family name must be at least 2 characters.");
+                            msgService.showWarn("Family name must be at least 2 characters.\nFamily name cannot contain numbers.");
                         }
                         else if($scope.familyRoom.password != $scope.familyRoom.password2){
                             msgService.showWarn("Passwords do not match.");

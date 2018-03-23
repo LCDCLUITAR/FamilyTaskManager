@@ -31,3 +31,14 @@
 #profileForm .form-profile{
     padding: 0;
 }
+.label-container{
+    position: relative;
+}
+.label-container .fa{
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    z-index: 2;
+    font-size: 15px;
+    cursor: pointer;
+}

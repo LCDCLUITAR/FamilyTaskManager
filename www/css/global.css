@@ -35,3 +35,138 @@ ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidt
     font-size: 1.6em;
     color: yellow;
 }
+
+.btn-outline-info {
+    color: #17a2b8;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid #17a2b8 !important;
+}
+.btn-outline-info:hover {
+    color: #fff !important;
+    background-color: #17a2b8;
+    border: 1px solid #17a2b8;
+}
+.btn-outline-info:not(:disabled):not(.disabled).active, .btn-outline-info:not(:disabled):not(.disabled):active, .show>.btn-outline-info.dropdown-toggle {
+    color: #fff !important;
+    background-color: #17a2b8;
+    border: 1px solid #17a2b8;
+}
+.scroll{
+    position: static !important;
+    height: 100% !important;
+}
+.i-icon{
+    font-size: 16px;
+}
+.i-check{
+    color: white !important;
+    border: 2px solid limegreen;
+    background-color: limegreen;
+}
+.i-users, .i-refresh{
+    color: dodgerblue !important;
+}
+.i-calendar, .i-tag{
+    color: limegreen !important;
+}
+.i-trophy{
+    color: darkorange !important;
+}
+.i-notes{
+    color: yellow !important;
+}
+.row{
+    margin: 0 !important;
+}
+.popup{
+    border-radius: 1.4em !important;
+    width: 90% !important;
+}
+.popup-head{
+    background-color: #337ab7;
+    color: aliceblue;
+    padding: 10px;
+    border-radius: 1.3em;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.button.button-positive {
+    border-color: transparent;
+    background-color: #337ab7;
+    border-radius: 0.8em;
+    color: #fff;
+}
+.button.button-stable {
+    border-color: transparent;
+    background-color: #f8f8f8;
+    border: 1px solid #404040;
+    border-radius: 0.8em;
+    color: #000;
+}
+.ion-datetime-picker .calendar .day, .ion-datetime-picker .calendar .weekday {
+    color: #000;
+    height: 20px;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 0px !important;
+}
+.ion-datetime-picker .calendar .day.selected, .ion-datetime-picker .calendar .day.selected:hover{
+    background-color: #337ab7;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    text-align: center;
+    border-radius: 4px;
+}
+.ion-datetime-picker-popup.popup-showing.active > div > div.popup-body > div > div.row.month-year > label.col.col-50.month-input > div{
+    background-color: whitesmoke;
+    border: none !important;
+}
+.ion-datetime-picker-popup.popup-showing.active > div.row.month-year > label.col.col-50.month-input > div > select{
+    border: 1px solid whitesmoke;
+    background-color: whitesmoke;
+    text-align: center !important;
+}
+.item-select select{
+    text-align: center;
+    text-align-last: center;
+}
+.item-input, .item-select select{
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    text-align: center !important;
+    font-size: 16px !important;
+    z-index: 2;
+}
+.item-input input{
+    font-size: 16px !important;
+}
+.item-select::after{
+    color: whitesmoke !important;
+}
+.ion-datetime-picker .calendar .day.disabled, .ion-datetime-picker .calendar .day.disabled:hover, .ion-datetime-picker .calendar .day.disabled.activated {
+    color: #ff000069;
+    background-color: transparent !important;
+}
+.time-buttons{
+    margin: -15px 0 !important;
+}
+body > div.popup-container.ion-datetime-picker-popup.popup-showing.active > div > div.popup-body > div > div:nth-child(11) > div:nth-child(6) > button{
+    position: absolute;
+    bottom: 92px;
+    border-radius: 0.4em;
+    background-color: #347ab7;
+    right: 72px;
+    pointer-events: all;
+    width: 35px;
+    z-index: 1;
+}
+body > div.popup-container.ion-datetime-picker-popup.popup-showing.active > div > div.popup-body > div > div.row.time > label:nth-child(6) > div > div > input{
+    color: aliceblue;
+}
+body > div.popup-container.ion-datetime-picker-popup.popup-showing.active > div > div.popup-body > div > div:nth-child(9) > div:nth-child(6) > button{
+    display: none;
+}
+body > div.popup-container.ion-datetime-picker-popup.popup-showing.active > div > div.popup-body > div > div.row.time > label:nth-child(6) > div{
+    pointer-events: none;
+}
