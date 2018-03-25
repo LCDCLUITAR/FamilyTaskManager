@@ -1,15 +1,23 @@
 <ion-view title="Calendar" id="page9">
-  <ion-nav-buttons side="left" class="has-header">
-    <button class="button button-icon icon ion-android-person"></button>
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right" class="has-header">
-    <button class="button button-icon icon ion-ios-cog-outline"></button>
-  </ion-nav-buttons>
-  <ion-content padding="false" class="manual-remove-top-padding has-header">
-    <form id="calendar-form8" class="list">
-      <ion-checkbox id="calendar-checkbox8">Checkbox</ion-checkbox>
-      <ion-checkbox id="calendar-checkbox9">Checkbox</ion-checkbox>
-      <ion-checkbox id="calendar-checkbox10">Checkbox</ion-checkbox>
-    </form>
-  </ion-content>
+    <ion-nav-buttons side="left" class="has-header">
+        <button class="button button-icon icon ion-android-person"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right" class="has-header">
+        <button class="button button-icon icon ion-ios-cog-outline"></button>
+    </ion-nav-buttons>
+    <ion-content padding="false" class="manual-remove-top-padding has-header">
+        <button class="button" ng-disabled="isToday()" ng-click="today()">Today</button>
+        <button class="button" ng-click="changeMode('month')">M</button>
+        <button class="button" ng-click="changeMode('week')">W</button>
+        <button class="button" ng-click="changeMode('day')">D</button>
+        <button class="button" ng-click="refreshTaskss()"><i class="fa fa-sync"></i></button>
+    </ion-content>
+    <ion-content padding="false" class="manual-remove-top-padding has-header" style="margin-top:3em">
+        <calendar   ng-model="calendar.currentDate"
+                    no-events-label="No Tasks Found"
+                    calendar-mode="calendar.mode" event-source="calendar.eventSource"
+                    range-changed="reloadSource(startTime, endTime)"
+                    event-selected="onEventSelected(event)" title-changed="onViewTitleChanged(title)"
+                    time-selected="onTimeSelected(selectedTime, events, disabled)" step="30"></calendar>
+    </ion-content>
 </ion-view>
