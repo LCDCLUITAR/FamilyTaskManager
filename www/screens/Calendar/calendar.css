@@ -1,0 +1,36 @@
+.weekview-header{
+    margin: 0 !important;
+}
+.weekview-allday-table{
+    position: absolute;
+    display: none;
+}
+@media (max-width: 750px){
+    .weekview-normal-event-container {
+        margin-top: 2.5em !important;
+    }
+}
+.weekview-normal-event-container {
+    margin-top: 2.6em !important;
+}
+.calendar-hour-column, .dayview-allday-label, .weekview-allday-label {
+    width: 45px !important;
+}
+@media (max-width: 750px){
+    .dayview-allday-content-wrapper, .weekview-allday-content-wrapper {
+        margin-left: 45px !important;
+    }
+}
+.dayview-allday-content-wrapper, .weekview-allday-content-wrapper {
+    margin-left: 45px !important;
+    overflow: hidden;
+    height: 51px;
+}
+@media (max-width: 750px){
+    .dayview-allday-label, .weekview-allday-label {
+        padding-top: 15px !important;
+    }
+}
+.dayview-allday-label, .weekview-allday-label {
+    padding-top: 15px !important;
+}

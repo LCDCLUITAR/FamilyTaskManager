@@ -8,5 +8,24 @@ factory.factory('msgService', function (){
     this.showError = function(msg) {
         swal("Error!", msg, "error");
     };
+    this.showConfirm = function(fn){
+        swal({
+            title: "Are you sure?",
+            text: "Your will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        }, fn);
+    };
+    this.showSuccess = function(title, text){
+        swal({
+            title: title,
+            text: text,
+            type: "success",
+            timer: 3000
+        });
+    };
     return this;
 });

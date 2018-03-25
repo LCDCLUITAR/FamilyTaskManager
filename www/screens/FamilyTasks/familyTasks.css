@@ -74,6 +74,7 @@
 .task-label .fa-bars{
     position: absolute;
     top: 10px;
+    color: #808080;
     font-size: 20px;
     font-weight: 700;
     left: 10px;
@@ -113,6 +114,7 @@
     position: relative;
     margin: 5px 10px;
     border-top: 1px solid #000;
+    min-height: 80px;
 }
 .task-content .notifications .complete{
     color: green;
@@ -143,10 +145,12 @@
     font-size: 16px;
 }
 .btn-label{
-    margin-top: 10px;
-    font-size: 10px !important;
+    font-size: 12px !important;
     padding: 1px 5px !important;
     margin-right: 3px;
+}
+.btn-label-margin{
+    margin-top: 10px;
 }
 .btn-label:last-child{
     margin-right: 0;
@@ -254,4 +258,28 @@ input[name="taskType"]{
     position: absolute;
     top: 0px;
     left: 120px;
+}
+.task-content .adminBtns{
+    position: absolute;
+    right: 0px;
+    display: inline-block;
+    top: 35px;
+}
+.dueDateCheck{
+    height: 18px;
+    width: 18px;
+}
+.dueDateAdd{
+    font-size: 14px;
+    font-weight: 700;
+}
+.text-red{
+    color: red !important;
+}
+.text-green{
+    color: green !important;
+}
+.text-green-i{
+    border: 2px solid green !important;
+    background-color: green !important;
 }
