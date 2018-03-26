@@ -5,19 +5,79 @@
     <ion-nav-buttons side="right" class="has-header">
         <button class="button button-icon icon ion-ios-cog-outline"></button>
     </ion-nav-buttons>
-    <ion-content padding="false" class="manual-remove-top-padding has-header">
-        <button class="button" ng-disabled="isToday()" ng-click="today()">Today</button>
-        <button class="button" ng-click="changeMode('month')">M</button>
-        <button class="button" ng-click="changeMode('week')">W</button>
-        <button class="button" ng-click="changeMode('day')">D</button>
-        <button class="button" ng-click="refreshTaskss()"><i class="fa fa-sync"></i></button>
+    <ion-content padding="false" class="manual-remove-top-padding has-header top-calendar-btns">
+        <h5 class="calendar-title">{{viewTitle}}</h5>
+        <div class="calendar-btns">
+            <button class="btn btn-primary" ng-disabled="isToday()" ng-click="today()">Today</button>
+            <button class="btn btn-primary" ng-click="changeMode('month')">M</button>
+            <button class="btn btn-primary" ng-click="changeMode('week')">W</button>
+            <button class="btn btn-primary" ng-click="changeMode('day')">D</button>
+        </div>
     </ion-content>
-    <ion-content padding="false" class="manual-remove-top-padding has-header" style="margin-top:3em">
+    <ion-content padding="false" class="manual-remove-top-padding has-header" style="margin-top:3.5em">
         <calendar   ng-model="calendar.currentDate"
+                    format-week-title="MMMM dd, yyyy"
                     no-events-label="No Tasks Found"
                     calendar-mode="calendar.mode" event-source="calendar.eventSource"
                     range-changed="reloadSource(startTime, endTime)"
-                    event-selected="onEventSelected(event)" title-changed="onViewTitleChanged(title)"
-                    time-selected="onTimeSelected(selectedTime, events, disabled)" step="30"></calendar>
+                    event-selected="onTaskSelected(event)" title-changed="onViewTitleChanged(title)"step="30">
+        </calendar>
     </ion-content>
+    <div id="showModal" ng-show="showModal" style="margin-top:-6px">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div ng-class="modal.PersonalTask ? 'bg-success' : 'bg-primary'" class="modal-header">
+                    <i class="fa fa-times close" ng-click="showModal = false"></i>
+                    <h4 class="modal-title">{{modal.PersonalTask ? 'Personal Task' : 'Family Task'}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="taskName">
+                        <i class="i-icon i-check fa fa-check-square text-success"></i>
+                        <label class="taskLabel" for="taskName">Task Name:</label>
+                        <input required type="text" class="bottomline-input" name="taskName" ng-model="modal.TaskName" autocomplete="new-name" ng-disabled="true"/>
+                    </div>
+                    <div ng-if="!modal.PersonalTask" class="taskAssign" ng-show="modal.AssignedTo">
+                        <i class="i-icon i-users fa fa-users"></i>
+                        <label class="taskLabel-justified" for="taskAssign">Assign:</label>
+                        <div ng-repeat="member in modal.AssignedTo" class="members">
+                            <img class="member-img" src="http://via.placeholder.com/350x150"/>
+                            <h6 class="member-name">{{member.Name.split(' ')[0]}}</h6>
+                        </div>
+                    </div>
+                    <div class="taskDate" ng-show="modal.TaskDueDate" style="position:relative">
+                        <i class="i-icon i-calendar fa fa-calendar"></i>
+                        <label class="taskLabel" for="taskDate">Due Date:</label>
+                        <div style="pointer-events: none; border:none !important;background-color:transparent;position: absolute;left: 115px;top: -6px;" ion-datetime-picker am-pm only-valid="{'after': 'today', 'inclusive': true}" ng-disabled="true" title="['Pick a due date and time!']"
+                            class="bottomline-input form-control" name="taskDate"
+                            ng-model="modal.TaskDueDate" autocomplete="new-date">{{modal.TaskDueDate | date: "MM-dd-yy, h:mm a"}}</div>
+                    </div>
+                    <div class="taskRepeat" ng-show="modal.Repeat">
+                        <i class="i-icon i-refresh fa fa-sync"></i>
+                        <label class="taskLabel" for="taskRepeat">Repeat:</label>
+                        <input required type="text" class="bottomline-input" name="Repeat" ng-model="modal.Repeat" autocomplete="new-name" ng-disabled="true"/>
+                    </div>
+                    <div class="taskLabels" ng-show="modal.Labels">
+                        <i class="i-icon i-tag fa fa-tag"></i>
+                        <label class="taskLabel" for="taskLabels">Labels:</label>
+                        <button type="button"
+                                ng-disabled="true"
+                                style="opacity:1; cursor:default"
+                                class="btn-label btn btn-info btn-label-margin active"
+                                ng-repeat="label in modal.Labels track by $index">{{label.Name}}</button>
+                    </div>
+                    <div ng-if="!modal.PersonalTask" class="taskPoints" ng-show="modal.PointsWorth">
+                        <i class="i-icon i-trophy fa fa-trophy"></i>
+                        <label class="taskLabel" for="taskPoints" style="margin-top:10px">Points:</label>
+                        <button type="button" style="opacity:1; cursor:default" ng-disabled="true" class="btn-points btn btn-primary active">{{modal.PointsWorth}}</button>
+                    </div>
+                    <div class="taskNotes" ng-show="modal.Notes">
+                        <i class="i-icon i-notes fa fa-sticky-note"></i>
+                        <label class="taskLabel" for="taskNotes">Notes:</label>
+                        <textarea style="opacity:1; cursor:default;border: none;color:#000;text-decoration: underline;" ng-disabled="true" rows="4" class="textArea" ng-model="modal.Notes" name="taskNotes" autocomplete="new-notes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-view>

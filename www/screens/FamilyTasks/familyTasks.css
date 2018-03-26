@@ -99,6 +99,10 @@
 .task-label .title-subtitle .subtitle1, .task-label .title-subtitle .subtitle2{
     margin-top: 0 !important;
     margin-bottom: 0 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
 }
 .task-label .title-subtitle .subtitle2{
     color: green;
@@ -216,7 +220,10 @@
     height: 30px !important;
     width: calc(100% - 40%) !important;
     border: none !important;
-    border-bottom: 1px solid dodgerblue !important;
+    border-bottom: 1px solid dodgerblue !important;    
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .taskLabels .btn-label .fa-times{
     margin-left: 8px;
