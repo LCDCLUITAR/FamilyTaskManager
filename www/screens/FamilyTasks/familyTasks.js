@@ -51,6 +51,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                     TaskDueDate: $scope.today,
                     PointsWorth: 0,
                     AssignedTo: [],
+                    CreatedOn: $scope.today,
                     CreatedBy: $scope.member.displayName,
                     CreatedByUserID: $scope.member.uid,
                     Notes: '',
@@ -129,6 +130,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         TaskDueDate: $scope.today,
                         PointsWorth: 0,
                         AssignedTo: [],
+                        CreatedOn: $scope.today,
                         CreatedBy: $scope.member.displayName,
                         CreatedByUserID: $scope.member.uid,
                         Notes: '',
@@ -171,6 +173,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         $scope.member[i].assigned = false;
                     }
                     newTask.TaskDueDate = $scope.addDueDate ? newTask.TaskDueDate : '';
+                    //newTask.CreatedOn = $scope.addDueDate ? newTask.CreatedOn : '';
                     $scope.newTask.TaskDueDate = moment($scope.newTask.TaskDueDate).format('MM-DD-YY, h:mm a');
                     if(isUpdate){
                         $scope.updateTask(newTask);
@@ -189,6 +192,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         TaskDueDate: $scope.today,
                         PointsWorth: 0,
                         AssignedTo: [],
+                        CreatedOn: $scope.today,
                         CreatedBy: $scope.member.displayName,
                         CreatedByUserID: $scope.member.uid,
                         Notes: '',

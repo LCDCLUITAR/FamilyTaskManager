@@ -34,3 +34,62 @@
 .dayview-allday-label, .weekview-allday-label {
     padding-top: 15px !important;
 }
+.event-detail {
+    overflow: hidden !important;
+}
+.monthview-eventdetail-timecolumn {
+    width: 80px !important;
+    overflow: hidden;
+}
+.top-calendar-btns{
+    background-color: #2c699f;
+    color: #fff;
+    padding: 5px 10px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+.top-calendar-btns h5{
+    display: inline-block;
+    font-size: 16px !important;
+    float: left;
+}
+.top-calendar-btns .calendar-btns{
+    float: right;
+    display: inline-block;
+}
+.family:nth-child(1){
+    border-left: 3px solid #2c699f !important;
+}
+.personal:nth-child(1){
+    border-left: 3px solid #009900 !important;
+}
+.allTab, .famTab, .personalTab{
+    padding: 0 !important;
+    font-size: 12px !important;
+}
+.allTab{
+    width: 1px !important;
+}
+#showModal{
+    height: 100%;
+    width: 100%;
+}
+#showModal .modal-dialog{
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
+#showModal .bottomline-input:disabled{
+    background-color: transparent !important;
+    border: none !important;
+}
+#showModal .modal-content {
+    height: 100%;
+}
+#showModal .close{
+    color: aliceblue !important;
+    font-size: 24px;
+    opacity: 1 !important;
+}
