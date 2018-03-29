@@ -1,24 +1,50 @@
-<ion-view title="Profile" id="page13">
+<ion-view title="Profile">
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="tabsController.familyTasks()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
     <ion-content padding="false" class="manual-remove-top-padding has-header">
-        <ion-list id="profile-list4">
-            <ion-item class="item-avatar" id="profile-list-item5">
-                <h2>Change profile picture</h2>
-            </ion-item>
-            <label class="item item-input" id="profile-input13" name="name">
-                <input type="text" placeholder="Update name">
-            </label>
-            <label class="item item-input" id="profile-input14" name="email">
-                <input type="email" placeholder="Update email">
-            </label>
-            <label class="item item-input" id="profile-input15" name="password">
-                <input type="password" placeholder="Update Password">
-            </label>
-        </ion-list>
-        <div class="spacer" style="width: 320px; height: 229px;"></div>
-        <a ui-sref="tabsController.familyTasks()" id="profile-button18" class="button button-positive button-block">Save Changes</a>
-        <a id="profile-button19" ng-click="logout()" class="button button-assertive button-block">Logout</a>
+        <div class="profile-header">
+            <div class="profile-img">
+                <img ng-src="{{photoURL}}" width="60"/>
+                <button ng-if="isOnEdit" class="btn btn-info btn-sm edit-btn" ng-click="editPhoto()">Edit</button>
+                <input id="fileInputPhoto" ng-model="newFile" files-input ng-change="uploadPhoto(newFile)" type="file" ng-hide="true"/>
+            </div>
+            <div class="profile-info">
+                <h4>{{member.displayName}}</h4>
+                <h6>{{member.Role}}</h6>
+                <button ng-show="!isOnEdit" ng-click="isOnEdit = true" class="btn btn-outline-info edit-profile">Edit Profile&nbsp;&nbsp;<i class="fa fa-pencil-alt"></i></button>
+                <button ng-show="isOnEdit" ng-click="isOnEdit = false" id="cancel" class="btn btn-outline-warning edit-profile">Cancel&nbsp;&nbsp;<i class="fa fa-minus"></i></button>
+            </div>
+        </div>
+        <form id="profile-form">
+            <label class="profile-labels" for="name">Name: </label>
+            <input ng-disabled="!isOnEdit" class="bottomline-input" ng-model="new.Name" placeholder="John Doe">
+            <label class="profile-labels" for="email">Email: </label>
+            <input ng-disabled="!isOnEdit" class="bottomline-input" ng-model="new.Email" placeholder="example@email.com">
+            <div class="label-container" ng-if="isOnEdit">
+                <label class="profile-labels" for="password">Old Password: </label>
+                <input ng-attr-type="{{ showPass ? 'text' : 'password' }}" class="bottomline-input" name="password" ng-model="new.oldPassword" placeholder="Password" type="password" autocomplete="new-pass">
+                <span ng-show="new.oldPassword" ng-click="showPass = !showPass" ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+            </div>
+            <div class="label-container" ng-if="isOnEdit">
+                <label class="profile-labels" for="password2">New Password: </label>
+                <input ng-attr-type="{{ showPass2 ? 'text' : 'password' }}" class="bottomline-input" name="password2" ng-model="new.newPassword" placeholder="Password" type="password" autocomplete="new-pass">
+                <span ng-show="new.newPassword" ng-click="showPass2 = !showPass2" ng-class="showPass2 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+            </div>
+            <div class="label-container" ng-if="isOnEdit">
+                <label class="profile-labels" for="password3">Verify Password: </label>
+                <input ng-attr-type="{{ showPass3 ? 'text' : 'password' }}" class="bottomline-input" name="password3" ng-model="new.newPassword2" placeholder="Password" type="password" autocomplete="new-pass">
+                <span ng-show="new.newPassword2" ng-click="showPass3 = !showPass3" ng-class="showPass3 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+            </div>
+            <button  ng-if="isOnEdit" ng-click="updateMyProfile(new)" class="button button-calm button-block">Save Changes</button>
+        </form>
+        <hr />
+        <div id="badges" ng-if="!isOnEdit">
+            <h4>Badges</h4>
+            <h6>Points: {{member.Points}}</h6>
+            <div class="badges">
+
+            </div>
+        </div>
     </ion-content>
 </ion-view>

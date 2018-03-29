@@ -32,8 +32,9 @@ controller.controller('calendarCtrl', function ($scope, $stateParams, authServic
                 firebase.database().ref('Tasks/'+$scope.member.Family.ID).on('value',function(snap){
                     if(snap.val()){
                         var tasks = Object.values(snap.val()).filter(o =>
+                            !o.Completed && (
                             !o.PersonalTask ||
-                            (o.PersonalTask && o.CreatedByUserID == $scope.member.uid)
+                            (o.PersonalTask && o.CreatedByUserID == $scope.member.uid))
                         );
                         $scope.tasks = tasks;
                         for (var i = 0; i < tasks.length; i++) {

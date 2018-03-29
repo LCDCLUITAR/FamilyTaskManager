@@ -54,7 +54,7 @@ angular.module('app.routes', ['ionicUIRouter'])
         views: {
             'tab3': {
                 templateUrl: 'screens/MyTasks/myTasks.html',
-                controller: 'myTasksCtrl'
+                controller: 'familyCtrl'
             }
         }
     })
