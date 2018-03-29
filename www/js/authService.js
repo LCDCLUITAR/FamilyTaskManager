@@ -1,9 +1,112 @@
-factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $ionicLoading, $q, msgService){
+factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $ionicLoading, $q, msgService, $rootScope){
     var firebaseAuth = $firebaseAuth();
     var logged = false;
     var member = {};
     var that = this;
     var ownerPassed = false;
+
+    this.sendEmail = function(data,success,error){
+        header={'Content-Type':'application/x-www-form-urlencoded','Content-Type':'application/json','Access-Control-Allow-Origin':'*'},
+        $http({
+            method: 'POST',
+            url: 'http://srvpp.online/demoemail.php',
+            headers: header,
+            data: data,
+            dataType: "json"
+        }).
+        success(function (data, status, headers, config) {
+            header = {};
+            success(data, status, headers, config);
+        }).
+        error(function (data, status, headers, config) {
+            header = {};
+            //  $cordovaToast.showShortBottom("Unable to communicate with server... Please try again.");
+            error(data, status, headers, config);
+        });
+    },
+    this.updateMyProfile = function(profiledata, action){
+        var user = firebase.auth().currentUser;
+        var uid = user.uid;
+        function updatePhoto(){
+            console.log("Updating photoURL");
+            firebase.database().ref('Members/' + uid + '/photoURL').set(profiledata.photoURL);
+            user.updateProfile({
+                photoURL: profiledata.photoURL
+            }).then(function() {
+                // Update successful.
+            }).catch(function(error) {
+                // An error happened.
+                msgService.showError("Profile picture update failed " + error);
+            });
+        };
+        function updateName(){
+            console.log("Updating Name");
+            firebase.database().ref('Members/' + uid).update({
+                Name: profiledata.Name
+            });
+            firebase.database().ref('Members/' + uid).on('value',function(snap){
+                if(snap.val()){
+                    var path = 'Families/' + snap.val().Families.ID + '/FamilyMembers/' + uid + '/Name';
+                    firebase.database().ref(path).set(profiledata.Name);
+                }
+            });
+            user.updateProfile({
+                displayName: profiledata.Name
+            }).then(function() {
+                // Update successful.
+            }).catch(function(error) {
+                // An error happened.
+                msgService.showError("Name update failed " + error);
+            });
+            // Update name in FamilyMembers
+            console.log(user);
+        };
+        function updateEmail(){
+            console.log("Updating Email");
+            user.updateEmail(profiledata.newEmail).then(function () {
+                // Update successful.
+                //msgService.showSuccess("Email has been updated");
+            }).catch(function (error) {
+                msgService.showError("Email update Failed " + error);
+            });
+        };
+        function updatePassword(){
+            console.log("Updating password");
+            var credential = firebase.auth.EmailAuthProvider.credential(
+                user.email,
+                profiledata.oldPassword
+            );
+            user.reauthenticateWithCredential(credential).then(function() {
+                // If old password is a match
+                user.updatePassword(profiledata.newPassword).then(function () {
+                    // Update successful.
+                    //msgService.showSuccess("Password has been updated");
+                }).catch(function (error) {
+                    msgService.showError("Password update Failed " + error);
+                });
+
+            }).catch(function(error) {
+                //Old password was not a match
+                msgService.showError("Your old password was invalid. " + error);
+            });
+        };
+        switch (action) {
+            case 'photo':
+                updatePhoto();
+                break;
+            case 'name':
+                updateName();
+                break;
+            case 'email':
+                updateEmail();
+                break;
+            case 'password':
+                updatePassword();
+                break;
+            default:
+                msgService.showError("There was an unexpected error: " + error);
+        }
+    },
 
     this.createFamilyRoom = function(familyRoom, family){
         if(familyRoom){
@@ -53,6 +156,7 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
                     animation: 'fade-in'
                 });
                 ownerPassed = false;
+                family.reverse();
                 this.createFamily(family, famID, familyRoom.password);
             }
         }
@@ -88,15 +192,16 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
                     ID: memberInfo.uid,
                     Name: family[0].name,
                     MemberSince: today,
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/familytasksmanager.appspot.com/o/default_user_icon.png?alt=media&token=813a45a9-ee2c-47c6-9096-2d51f27638ef",
                     hasLogged: hasLogged,
-                    Points: 0,
                     Families: {ID: famRoomID, Notifications: true}
                 });
 
                 memberInfo.updateProfile({
                     displayName: family[0].name,
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/familytasksmanager.appspot.com/o/default_user_icon.png?alt=media&token=813a45a9-ee2c-47c6-9096-2d51f27638ef"
                 }).then(function() {
-                    if(!ownerPassed){
+                    if(family[0].Role == 'Owner'){
                         that.login({email: family[0].email, password: family[0].password});
                         ownerPassed = true;
                     }
@@ -131,12 +236,13 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
                     member.uid          = userInfo.uid;
                     member.displayName  = userInfo.displayName;
                     member.MemberSince  = snap.val().MemberSince;
-                    member.Points       = snap.val().Points;
+                    member.photoURL     = snap.val().photoURL;
                     member.email        = userInfo.email;
                     member.Families     = snap.val().Families;
                     firebase.database().ref('Families/'+member.Families.ID).on('value',function(childSnap){
                         if(childSnap.val()){
                             member.Family = childSnap.val();
+                            member.Points = member.Family.FamilyMembers[member.uid].Points;
                             $ionicLoading.hide();
                             $state.go('tabsController.familyTasks');
                         }
@@ -163,13 +269,16 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
                         member.uid          = userInfo.uid;
                         member.displayName  = userInfo.displayName;
                         member.MemberSince  = snap.val().MemberSince;
-                        member.Points       = snap.val().Points;
                         member.email        = userInfo.email;
+                        member.photoURL     = snap.val().photoURL;
                         member.Families     = snap.val().Families;
                         firebase.database().ref('Families/'+member.Families.ID).on('value',function(childSnap){
                             if(childSnap.val()){
                                 member.Family = childSnap.val();
+                                member.Points = member.Family.FamilyMembers[member.uid].Points;
                                 $ionicLoading.hide();
+                                console.log(member);
+                                $rootScope.$broadcast('member-updated', { info: member });
                                 defer.resolve(member);
                                 if($state.current.name == 'login' || $state.current.name == 'register'){
                                     $state.go('tabsController.familyTasks');
@@ -181,6 +290,7 @@ factory.factory('authService', function ($state, $firebaseAuth, $ionicPopup, $io
             }
             else{
                 //msgService.showError("Error while logging in. Try again");
+                $state.go('login');
                 defer.resolve(false);
             }
         });

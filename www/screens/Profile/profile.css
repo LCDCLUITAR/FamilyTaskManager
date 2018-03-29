@@ -1,0 +1,72 @@
+.profile-header{
+    padding: 10px;
+    position: relative;
+    height: 9em;
+    border-bottom: 1px solid #D0D0D0;
+}
+.profile-img{
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    padding: 20px;
+    top: 0;
+    left: 0;
+    width: 25%;
+}
+.profile-img img{
+    border-radius: 50%;
+}
+.edit-btn{
+    position: absolute;
+    text-align: center !important;
+    top: 65px;
+    width: 55px;
+    left: 22px;
+    font-size: 10px !important;
+    padding: 0px 15px !important;
+    border-bottom-left-radius: 100% !important;
+    border-bottom-right-radius: 100% !important;
+}
+.profile-info{
+    height: 100%;
+    padding: 25px 20px;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    width: 75%;
+}
+.profile-info h4{
+    font-weight: 700 !important;
+    margin: 5px 0;
+}
+.profile-info h6{
+    font-weight: 500 !important;
+    margin: 0;
+    font-size: 12px;
+}
+.profile-info .edit-profile{
+    margin-top: 10px;
+    font-size: 11px !important;
+}
+.profile-labels{
+    width: 40%;
+}
+#profile-form{
+    padding: 20px;
+}
+#profile-form .bottomline-input{
+    width: 55% !important;
+}
+.profile-img .btn-info:active:focus {
+    outline: none !important;
+}
+.profile-eye{
+    position: absolute !important;
+    top: 10px !important;
+}
+#badges{
+    text-align: center;
+}
+#badges h4{
+    font-size: 25px !important;
+}

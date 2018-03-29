@@ -8,9 +8,12 @@
             <label class="item item-input" id="login-input3" name="email">
                 <input type="email" placeholder="Email" ng-model="member.email" autocomplete="new-email">
             </label>
-            <label class="item item-input" id="login-input4" name="password">
-                <input type="password" placeholder="Password" ng-model="member.password" autocomplete="new-password">
-            </label>
+            <div class="label-container">
+                <label class="item item-input" id="login-input4" name="password">
+                    <input ng-attr-type="{{ showPass ? 'text' : 'password' }}" type="password" placeholder="Password" ng-model="member.password" autocomplete="new-password">
+                </label>
+                <span ng-show="member.password" ng-click="showPass = !showPass" ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'" class="fa"></span>
+            </div>
         </form>
         <div class="login-btns">
             <a id="login-button3" class="button button-positive button-block" ng-click="login(member)">Log in</a>

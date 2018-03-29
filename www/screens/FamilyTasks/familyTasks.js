@@ -174,7 +174,8 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                     }
                     newTask.TaskDueDate = $scope.addDueDate ? newTask.TaskDueDate : '';
                     //newTask.CreatedOn = $scope.addDueDate ? newTask.CreatedOn : '';
-                    $scope.newTask.TaskDueDate = moment($scope.newTask.TaskDueDate).format('MM-DD-YY, h:mm a');
+                    if(newTask.TaskDueDate != '')
+                        $scope.newTask.TaskDueDate = moment($scope.newTask.TaskDueDate).format('MM-DD-YY, h:mm a');
                     if(isUpdate){
                         $scope.updateTask(newTask);
                     }
@@ -211,6 +212,10 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         $scope[taskType][idx].CompletedBy = $scope.member.displayName;
                         $scope[taskType][idx].CompletedDate = new Date().toLocaleTimeString('en-US', {month:'numeric', day:'numeric', year:'numeric', hour:'numeric', minute:'numeric'});;
                         firebase.database().ref('Tasks/'+$scope.member.Families.ID+'/'+$scope[taskType][idx].ID).set(JSON.parse(angular.toJson($scope[taskType][idx])));
+                        firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').once('value',function(snap){
+                            var Points = snap.val() + $scope[taskType][idx].PointsWorth;
+                            firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').set(Points);
+                        });
                         safeApply($scope);
                     }
                     else{
@@ -218,6 +223,10 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         delete $scope[taskType][idx].CompletedBy;
                         delete $scope[taskType][idx].CompletedDate;
                         firebase.database().ref('Tasks/'+$scope.member.Families.ID+'/'+$scope[taskType][idx].ID).set(JSON.parse(angular.toJson($scope[taskType][idx])));
+                        firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').once('value',function(snap){
+                            var Points = snap.val() - $scope[taskType][idx].PointsWorth;
+                            firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').set(Points);
+                        });
                         safeApply($scope);
                     }
                 };
