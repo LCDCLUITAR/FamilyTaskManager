@@ -1,0 +1,83 @@
+#settings{
+    font-family: roboto;
+    background-color: #fff;
+    height: 100%;
+    width: 100%;
+}
+#settings .profile-info{
+    width: 100% !important;
+    left: 0;
+}
+.edit-settings{
+    padding: 3px 5px !important;
+    width: 155px;
+    font-size: 12px !important;
+    text-align: left !important;
+}
+.newRole{
+    width: 70px;
+    height: auto !important;
+}
+.roleSelect{
+    width: 100%;
+    border-radius: 0.8em;
+    background-color: #37b0d5;
+    color: aliceblue;
+    padding: 3px;
+    border: 1px solid #37b0d5;
+}
+#roleSelect{
+    margin: 0px -5px;
+    border-radius: 0.4em;
+    border: 1px solid #37b0d5;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 100%;
+}
+#addRole{
+    background-color: forestgreen;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    color: aliceblue;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+.remMember{
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    color: aliceblue;
+    font-size: 0.8em;
+    cursor: pointer;
+    text-align: center;   
+}
+.remRole{
+    position: absolute;
+    right: 10px;
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    color: aliceblue;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+#addMember{
+    background-color: forestgreen;
+    border-radius: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    color: aliceblue;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+#showModalSettings{
+    position: absolute;
+    top: 0;
+    left: 7.5%;
+    width: 85%;
+    margin: 0 auto !important;
+}

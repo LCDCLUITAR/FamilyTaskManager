@@ -2,49 +2,53 @@
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="tabsController.familyTasks()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
+    <ion-nav-buttons side="right" class="has-header">
+        <button ng-if="edit.isEdit()" ng-click="updateMyProfile(new)" class="btn btn-info btn-block">Save</button>
+    </ion-nav-buttons>
     <ion-content padding="false" class="manual-remove-top-padding has-header">
         <div class="profile-header">
+            <button ng-if="!edit.isEdit()" ng-click="logout()" class="btn btn-danger logoutBtn"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</button>
             <div class="profile-img">
                 <img ng-src="{{photoURL}}" width="60"/>
-                <button ng-if="isOnEdit" class="btn btn-info btn-sm edit-btn" ng-click="editPhoto()">Edit</button>
+                <button ng-if="edit.isEdit()" class="btn btn-info btn-sm edit-btn" ng-click="editPhoto()">Edit</button>
                 <input id="fileInputPhoto" ng-model="newFile" files-input ng-change="uploadPhoto(newFile)" type="file" ng-hide="true"/>
             </div>
             <div class="profile-info">
                 <h4>{{member.displayName}}</h4>
                 <h6>{{member.Role}}</h6>
-                <button ng-show="!isOnEdit" ng-click="isOnEdit = true" class="btn btn-outline-info edit-profile">Edit Profile&nbsp;&nbsp;<i class="fa fa-pencil-alt"></i></button>
-                <button ng-show="isOnEdit" ng-click="isOnEdit = false" id="cancel" class="btn btn-outline-warning edit-profile">Cancel&nbsp;&nbsp;<i class="fa fa-minus"></i></button>
+                <button ng-show="!edit.isEdit()" ng-click="edit.setEdit(true)" class="btn btn-outline-info edit-profile">Edit Profile&nbsp;&nbsp;<i class="fa fa-pencil-alt"></i></button>
+                <button ng-show="edit.isEdit()" ng-click="edit.setEdit(false)" id="cancel" class="btn btn-outline-warning edit-profile">Cancel&nbsp;&nbsp;<i class="fa fa-minus"></i></button>
             </div>
         </div>
         <form id="profile-form">
             <label class="profile-labels" for="name">Name: </label>
-            <input ng-disabled="!isOnEdit" class="bottomline-input" ng-model="new.Name" placeholder="John Doe">
+            <input ng-disabled="!edit.isEdit()" class="bottomline-input" ng-model="new.Name" placeholder="John Doe">
             <label class="profile-labels" for="email">Email: </label>
-            <input ng-disabled="!isOnEdit" class="bottomline-input" ng-model="new.Email" placeholder="example@email.com">
-            <div class="label-container" ng-if="isOnEdit">
+            <input ng-disabled="!edit.isEdit()" class="bottomline-input" ng-model="new.Email" placeholder="example@email.com">
+            <div class="label-container" ng-if="edit.isEdit()">
                 <label class="profile-labels" for="password">Old Password: </label>
                 <input ng-attr-type="{{ showPass ? 'text' : 'password' }}" class="bottomline-input" name="password" ng-model="new.oldPassword" placeholder="Password" type="password" autocomplete="new-pass">
                 <span ng-show="new.oldPassword" ng-click="showPass = !showPass" ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
             </div>
-            <div class="label-container" ng-if="isOnEdit">
+            <div class="label-container" ng-if="edit.isEdit()">
                 <label class="profile-labels" for="password2">New Password: </label>
                 <input ng-attr-type="{{ showPass2 ? 'text' : 'password' }}" class="bottomline-input" name="password2" ng-model="new.newPassword" placeholder="Password" type="password" autocomplete="new-pass">
                 <span ng-show="new.newPassword" ng-click="showPass2 = !showPass2" ng-class="showPass2 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
             </div>
-            <div class="label-container" ng-if="isOnEdit">
+            <div class="label-container" ng-if="edit.isEdit()">
                 <label class="profile-labels" for="password3">Verify Password: </label>
                 <input ng-attr-type="{{ showPass3 ? 'text' : 'password' }}" class="bottomline-input" name="password3" ng-model="new.newPassword2" placeholder="Password" type="password" autocomplete="new-pass">
                 <span ng-show="new.newPassword2" ng-click="showPass3 = !showPass3" ng-class="showPass3 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
             </div>
-            <button  ng-if="isOnEdit" ng-click="updateMyProfile(new)" class="button button-calm button-block">Save Changes</button>
         </form>
         <hr />
-        <div id="badges" ng-if="!isOnEdit">
+        <div id="badges" ng-if="!edit.isEdit()">
             <h4>Badges</h4>
             <h6>Points: {{member.Points}}</h6>
             <div class="badges">
 
             </div>
         </div>
+        <button ng-if="edit.isEdit()" ng-click="deleteProfile()" class="btn btn-danger deleteProfile">Delete Profile</button>
     </ion-content>
 </ion-view>

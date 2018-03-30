@@ -16,7 +16,7 @@ controller.controller('calendarCtrl', function ($scope, $stateParams, authServic
                     if(member){
                         /***Variables***/
                         $scope.member = member;
-                        console.log(member);
+                        //console.log(member);
                         $scope.family = Object.values(member.Family.FamilyMembers);
                         /***Functions***/
                         calendarCtrl.view.initFunctions();
@@ -70,7 +70,7 @@ controller.controller('calendarCtrl', function ($scope, $stateParams, authServic
             },
             initWatches: function(){
                 $scope.onTaskSelected = function (task) {
-                    console.log(task);
+                    //console.log(task);
                     $scope.showModal = true;
                     $scope.modal = task;
                 };

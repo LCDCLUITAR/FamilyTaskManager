@@ -11,8 +11,19 @@ factory.factory('msgService', function (){
     this.showConfirm = function(fn){
         swal({
             title: "Are you sure?",
-            text: "Your will not be able to recover this imaginary file!",
+            text: "Your will not be able to recover this record!",
             type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: true
+        }, fn);
+    };
+    this.showConfirmProfileDeletion = function(fn){
+        swal({
+            title: "Are you sure?",
+            text: "All your information will be deleted!",
+            type: "error",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
             confirmButtonText: "Yes, delete it!",

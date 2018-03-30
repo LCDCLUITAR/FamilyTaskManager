@@ -1,4 +1,4 @@
-controller.controller('familyCtrl', function ($scope, $stateParams, authService) {
+controller.controller('familyCtrl', function ($scope, $stateParams, authService, safeApply) {
     var familyCtrl = {
         controller: {
             calls: {
@@ -24,7 +24,7 @@ controller.controller('familyCtrl', function ($scope, $stateParams, authService)
                 });
             },
             initVariables: function(){
-                $scope.tab = 'Family';
+                $scope.tab = $scope.tab || 'Family';
                 $scope.memberInfo;
                 firebase.database().ref('Members/').on('value',function(snap){
                     if(snap.val()){
@@ -36,9 +36,24 @@ controller.controller('familyCtrl', function ($scope, $stateParams, authService)
                         var tasks = Object.values(snap.val()).filter(o =>
                             (typeof o.AssignedTo != 'undefined') && !o.Completed
                         );
-                        for (var i = 0; i < $scope.family.length; i++) {
+                        $scope.family.sort(function(a, b){ return b.Points - a.Points});
+                        var rank = 0;
+                        for (var i = 0, j = 1; i < $scope.family.length; i++,j++) {
                             $scope.family[i]["TaskCount"] = 0;
+                            if($scope.family[i].Role == 'Owner')
+                                $scope.family[i]["RoleIdx"] = 1;
+                            else if($scope.family[i].Role == 'Admin')
+                                $scope.family[i]["RoleIdx"] = 2;
+                            else
+                                $scope.family[i]["RoleIdx"] = 3;
+                            if(j < $scope.family.length){
+                                if($scope.family[j-1].Points == $scope.family[j].Points)
+                                    $scope.family[j-1]['PointsIdx'] = $scope.family[j]['PointsIdx'] = rank + 1;
+                                else
+                                    $scope.family[j-1]['PointsIdx'] = $scope.family[j]['PointsIdx'] = ++rank;
+                            }
                         }
+                        //console.log($scope.family);
                         if(tasks.length){
                             for (var i = 0; i < tasks.length; i++) {
                                 for (var j = 0; j < tasks[i].AssignedTo.length; j++) {
@@ -51,6 +66,7 @@ controller.controller('familyCtrl', function ($scope, $stateParams, authService)
                         }
                     }
                 });
+                safeApply($scope);
             },
             initFunctions: function(){
                 $scope.getPhoto = function(uid){
@@ -71,7 +87,7 @@ controller.controller('familyCtrl', function ($scope, $stateParams, authService)
                 $scope.$on('member-updated', function(event, update) {
                     $scope.member = update.info;
                     $scope.family = Object.values(update.info.Family.FamilyMembers);
-                    console.log('member updated');
+                    familyCtrl.view.initVariables();
                 });
             }
         }

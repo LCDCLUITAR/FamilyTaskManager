@@ -26,6 +26,7 @@ controller.controller('registerCtrl', function ($scope, $stateParams, $state, au
                 // Bool for showing password
                 $scope.showPass = false;
                 $scope.showPass2 = false;
+                $scope.showPassOwner = false;
                 // States in registration process (Used for cancel and next navigation)
                 $scope.navState = 'family';
                 // Holds family room info
@@ -116,6 +117,10 @@ controller.controller('registerCtrl', function ($scope, $stateParams, $state, au
                         authService.login({email: family[0].email, password: family[0].password});
                     }, 2000);*/
                 }
+                $scope.toggleEye = {
+                    isEye: function(){ return $scope.showPassOwner},
+                    setEye: function(){$scope.showPassOwner = !$scope.showPassOwner}
+                };
             },
             initWatches: function(){
 
