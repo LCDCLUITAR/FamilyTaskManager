@@ -31,11 +31,19 @@
                     <label class="item item-input" id="register-input6" name="email">
                         <input ng-model="member.email" type="email" placeholder="Email" autocomplete="new-email">
                     </label>
-                    <label class="item item-input" id="register-input7" name="password" ng-if="$index == 0">
-                        <input ng-model="member.password" type="password" placeholder="Password" autocomplete="new-password">
-                    </label>
+                    <div class="label-container">
+                        <label class="item item-input" id="register-input7" name="password" ng-if="$index == 0">
+                            <input ng-model="member.password" ng-attr-type="{{ toggleEye.isEye() ? 'text' : 'password' }}" placeholder="Password" autocomplete="new-password">
+                        </label>
+                        <span ng-if="$index == 0" ng-show="member.password" ng-click="toggleEye.setEye()" ng-class="toggleEye.isEye() ? 'fa-eye-slash' : 'fa-eye'" class="fa"></span>
+                    </div>
                     <label class="item item-input" id="register-input7" name="role">
-                        <input ng-model="member.role" type="text" placeholder="Family Role" autocomplete="new-password">
+                        <input ng-if="$index == 0" ng-model="member.role" type="text" disabled placeholder="Family Role" autocomplete="new-password">
+                        <select id="roleSelect-Register" ng-if="$index != 0" ng-model="member.role" class="roleSelect">
+                            <option value="Owner">Owner</option>
+                            <option value="Admin">Admin</option>
+                            <option ng-selected="true" value="Member">Member</option>
+                        </select>
                     </label>
                 </div>
             </ion-list>
@@ -48,7 +56,7 @@
         </form>
         <div class="register-btns col-xs-12">
             <button id="register-button5" class="col-xs-6 button button-assertive" ng-click="nav('prev', navState)">Cancel</button>
-            <button id="register-button6" class="col-xs-6 button button-positive" ng-click="nav('next', navState)">Next</button>
+            <button id="register-button6" class="col-xs-6 button button-positive no-radius" ng-click="nav('next', navState)">Next</button>
         </div>
     </ion-content>
 </ion-view>

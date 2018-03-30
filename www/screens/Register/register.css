@@ -42,3 +42,14 @@
     font-size: 15px;
     cursor: pointer;
 }
+#roleSelect-Register{
+    margin: 0px -5px;
+    background-color: transparent;
+    color: black;
+    border-radius: 0.4em;
+    border: 1px solid #37b0d5;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 100%;
+}

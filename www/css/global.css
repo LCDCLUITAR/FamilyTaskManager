@@ -213,3 +213,6 @@ body > div.popup-container.ion-datetime-picker-popup.popup-showing.active > div 
     background-color: #28a745!important;
     color: aliceblue !important;
 }
+.no-radius{
+    border-radius: 0px !important;
+}

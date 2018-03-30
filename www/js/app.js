@@ -4,6 +4,7 @@ angular.module('app', ['ionic', 'app.directives', 'app.factories', 'app.controll
 
   $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
   $ionicConfigProvider.tabs.position('bottom');
+  $ionicConfigProvider.navBar.alignTitle('center')
 })
 
 .run(function($ionicPlatform) {

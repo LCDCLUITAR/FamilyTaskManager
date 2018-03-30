@@ -70,3 +70,15 @@
 #badges h4{
     font-size: 25px !important;
 }
+.profile-header .logoutBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.deleteProfile{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+}

@@ -1,4 +1,4 @@
-<ion-view title="Personal Tasks" id="page11">
+<ion-view title="{{member.Family.FamilyName + ' Family'}}" class="text-center" id="page11">
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="profile()" class="button button-icon icon ion-android-person"></button>
     </ion-nav-buttons>
@@ -36,17 +36,19 @@
                     <div class="notifications">
                         <h4 class="complete" ng-show="task.Completed">Completed</h4>
                         <h4 class="incomplete" ng-show="!task.Completed">Incomplete</h4>
+                        <h4 class="complete" style="font-size:12px;margin: -7px 0 5px 0;" ng-show="task.Completed">By {{task.CompletedBy}}</h4>
                         <span ng-class="(isPastDue(task.TaskDueDate)) ? 'text-red' : 'text-green' " ng-if="task.TaskDueDate && tabNav.isTab('task')" class="dueDate">Due on {{task.TaskDueDate}}</span>
+                        <span style="right:0" ng-if="task.CompletedDate && tabNav.isTab('completed')" class="text-green dueDate">{{task.CompletedDate}}</span>
                         <i ng-class="(isPastDue(task.TaskDueDate)) ? '' : 'text-green-i'" ng-if="task.TaskDueDate && tabNav.isTab('task')" class="fa fa-clock"></i>
                     </div>
                     <div class="labels" ng-if="task.Labels">
                         <button ng-repeat="label in task.Labels" class="btn btn-info btn-label">{{label.Name}}</button>
                     </div>
                     <div class="adminBtns">
-                        <button ng-if="isAdmin()" ng-click="editTask(task)" type="button" class="btn btn-outline-warning">Edit</button>
+                        <button ng-if="isAdmin() && tabNav.isTab('task')" ng-click="editTask(task)" type="button" class="btn btn-outline-warning">Edit</button>
                         <button ng-if="isAdmin()" ng-click="deleteTask($index, 'tasksF')" type="button" class="btn btn-outline-danger">Delete</button>
                     </div>
-                    <div class="assigned" ng-if="task.AssignedTo">
+                    <div class="assigned" ng-if="task.AssignedTo && tabNav.isTab('tasks')">
                         Assigned to:<br />
                         <!--<img ng-repeat="member in task.AssignedTo" class="member-img" src="http://via.placeholder.com/350x150"/>-->
                         <div ng-repeat="member in task.AssignedTo" class="members">
@@ -120,10 +122,10 @@
                         <div ng-if="::isAdmin()" ng-hide="pActive" class="taskAssign">
                             <i class="i-icon i-users fa fa-users"></i>
                             <label class="taskLabel-justified" for="taskAssign">Assign:</label>
-                            <div ng-repeat="member in family"
+                            <div ng-repeat="member in family | orderBy: 'RoleIdx' track by $index"
                                 ng-class="(member.assigned) ? 'mSel' : ''" class="members"
                                 ng-click="addAssigned(member); member.assigned = !member.assigned">
-                                <img class="member-img" src="http://via.placeholder.com/350x150"/>
+                                <img class="member-img" ng-src="{{getPhoto(member.ID)}}"/>
                                 <h6 class="member-name">{{member.Name.split(' ')[0]}}</h6>
                             </div>
                         </div>

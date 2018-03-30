@@ -2,19 +2,131 @@
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="tabsController.familyTasks()" class="button button-icon icon ion-chevron-left"></button>
     </ion-nav-buttons>
+    <ion-nav-buttons side="right" class="has-header">
+        <button ng-click="updateFamilyInfo(new)" ng-show="infoChanged" class="btn btn-info btn-block">Save</button>
+    </ion-nav-buttons>
     <ion-content padding="false" class="manual-remove-top-padding has-header">
-        <form id="settings-form11" class="list">
-            <!--<label class="item item-input" id="settings-input11">-->
-                <!--<input type="text" placeholder="Update family name">-->
-            <!--</label>-->
-            <label class="item item-input" id="settings-input12">
-                <input type="text"  ng-model="remail1" placeholder="Send email invitations">
-            </label>
-          <div style="margin: auto 0;text-align: center"> <button id="register-button5" class="col-xs-6 button button-assertive" ng-click="sendInvitation()">SEND INVITATION</button></div>
-        </form>
-        <button id="settings-button16" class="button button-calm button-small button-block" ng-click="navToScreen('next','profile')">My Profile</button>
-
-        <button id="settings-button17" class="button button-calm button-small button-block" ng-click="logoutApp()">Logout</button>
-
+        <div id="settings">
+            <div class="profile-header" style="height:11em">
+                <div class="profile-info">
+                    <h2 class="text-center" style="margin-top:0px">{{member.Family.FamilyName + " Family"}}</h2>
+                    <h5 class="text-center">Members: {{memberCount}}</h5>
+                    <button ng-class="{'active' : edit.isEdit('info')}" ng-click="edit.setEdit('info')" class="btn btn-outline-info edit-settings"><i style="margin-right:10px" class="fa fa-pencil-alt pull-left"></i>Edit Family Info</button>
+                    <button ng-class="{'active' : edit.isEdit('password')}" ng-click="edit.setEdit('password')" class="btn btn-outline-info edit-settings"><i style="margin-right:10px" class="fa fa-pencil-alt pull-left"></i>Edit Family Password</button>
+                    <button ng-class="{'active' : edit.isEdit('roles')}" ng-click="edit.setEdit('roles')" class="btn btn-outline-info edit-settings"><i style="margin-right:10px" class="fa fa-pencil-alt pull-left"></i>Edit Role Permissions</button>
+                    <button ng-class="{'active' : edit.isEdit('members')}" ng-click="edit.setEdit('members')" class="btn btn-outline-info edit-settings"><i style="margin-right:10px" class="fa fa-pencil-alt pull-left"></i>Edit Member Roles</button>
+                </div>
+            </div>
+            <form id="profile-form" ng-if="edit.isEdit('info')">
+                <label class="profile-labels" for="name">Family Name: </label>
+                <input class="bottomline-input" ng-model="new.FamilyName">
+                <button type="button" class="btn btn-info btn-block" ng-click="resetFamilyPoints()" style="margin-top:10px">Reset Family Points</button>
+            </form>
+            <form id="profile-form" ng-if="edit.isEdit('password')">
+                <div class="label-container">
+                    <label class="profile-labels" for="password">Family Password: </label>
+                    <input ng-attr-type="{{ showPass ? 'text' : 'password' }}" class="bottomline-input" name="password" ng-model="new.oldPassword" placeholder="Password" type="password" autocomplete="new-pass">
+                    <span ng-show="new.oldPassword" ng-click="showPass = !showPass" ng-class="showPass ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+                </div>
+                <div class="label-container">
+                    <label class="profile-labels" for="password2">New Password: </label>
+                    <input ng-attr-type="{{ showPass2 ? 'text' : 'password' }}" class="bottomline-input" name="password2" ng-model="new.newPassword" placeholder="Password" type="password" autocomplete="new-pass">
+                    <span ng-show="new.newPassword" ng-click="showPass2 = !showPass2" ng-class="showPass2 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+                </div>
+                <div class="label-container">
+                    <label class="profile-labels" for="password3">Verify Password: </label>
+                    <input ng-attr-type="{{ showPass3 ? 'text' : 'password' }}" class="bottomline-input" name="password3" ng-model="new.newPassword2" placeholder="Password" type="password" autocomplete="new-pass">
+                    <span ng-show="new.newPassword2" ng-click="showPass3 = !showPass3" ng-class="showPass3 ? 'fa-eye-slash' : 'fa-eye'" class="fa profile-eye"></span>
+                </div>
+            </form>
+            <form id="profile-form" ng-if="edit.isEdit('roles')">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="width:60%">Role can:</th>
+                            <th style="width:10%">Add/Edit</th>
+                            <th style="width:10%">Assign</th>
+                            <th style="width:10%">Delete</th>
+                            <th style="width:10%">Delete Family</th>
+                            <th style="width:0%"></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-init="size = new.Roles.length">
+                        <tr ng-repeat="role in new.Roles" style="position:relative">
+                            <td ng-if="::role.Role != ''" class="text-left">{{role.Role}}</td>
+                            <td ng-if="::role.Role == ''" class="text-left"><input type="text" class="newRole" ng-model="role.Role" placeholder="New Role"/></td>
+                            <td class="text-center"><input type="checkbox" ng-disabled="::isOwner(role.Role)" ng-model="role.Permisions.Add" class="checkSettings-input"/></td>
+                            <td class="text-center"><input type="checkbox" ng-disabled="::isOwner(role.Role)" ng-model="role.Permisions.CanAssign" class="checkSettings-input"/></td>
+                            <td class="text-center"><input type="checkbox" ng-disabled="::isOwner(role.Role)" ng-model="role.Permisions.Delete" class="checkSettings-input"/></td>
+                            <td class="text-center"><input type="checkbox" ng-disabled="::isOwner(role.Role)" ng-model="role.Permisions.FamilyDeletion" class="checkSettings-input"/></td>
+                            <td ng-if="::role.Role == ''" class="text-center"><i ng-click="removeRole($index)" class="fa fa-minus remRole"></i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align:center"><i ng-click="addNewRole()" id="addRole" class="fa fa-plus"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <form id="profile-form" ng-if="edit.isEdit('members')">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Family Member</th>
+                            <th>Role</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="famMember in new.FamilyMembers | orderBy: 'RoleIdx' track by $index">
+                            <td>{{famMember.Name}}</td>
+                            <td>
+                                <select ng-model="famMember.Role" class="roleSelect">
+                                    <option ng-repeat="role in member.Family.Roles" value="{{role.Role}}">{{role.Role}}</option>
+                                </select>
+                            </td>
+                            <td class="text-center">
+                                <i ng-if="::(!isOwner(famMember.Role) && isNotMe(famMember.ID))" ng-click="deleteMember(famMember.ID)" class="fa fa-minus remMember"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align:center"><i ng-click="addNewMember()" id="addMember" class="fa fa-plus"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <div id="showModalSettings" ng-if="modalAction.isModal()" style="margin-top:-6px">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <i class="fa fa-times close" ng-click="modalAction.setModal(false)"></i>
+                            <h4 class="modal-title">Add new family members</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="profileForm" class="list">
+                                <ion-list id="settings-list">
+                                    <div ng-class="($index > 0) ? 'col-xs-10' : ''" class="form-profile">
+                                        <label class="item item-input" id="settings-input5" name="name">
+                                            <input ng-model="newMember.name" type="text" placeholder="Name" autocomplete="new-name">
+                                        </label>
+                                        <label class="item item-input" id="settings-input6" name="email">
+                                            <input ng-model="newMember.email" type="email" placeholder="Email" autocomplete="new-email">
+                                        </label>
+                                        <label class="item item-input" id="settings-input7" name="role">
+                                            <select id="roleSelect" ng-model="newMember.role">
+                                                <option ng-repeat="role in member.Family.Roles" value="{{role.Role}}">{{role.Role}}</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </ion-list>
+                                <div class="row">
+                                    <button type="button" class="btn btn-info btn-block" ng-click="addFamMember(newMember)">Add</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

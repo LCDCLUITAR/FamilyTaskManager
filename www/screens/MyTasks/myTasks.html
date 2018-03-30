@@ -1,4 +1,4 @@
-<ion-view title="Personal Tasks" id="page11">
+<ion-view title="{{member.Family.FamilyName + ' Family'}}" id="page11">
     <ion-nav-buttons side="left" class="has-header">
         <button ui-sref="profile()" class="button button-icon icon ion-android-person"></button>
     </ion-nav-buttons>
@@ -12,7 +12,7 @@
         </div>
         <table class="table-users table" border="0">
             <tbody>
-                <tr ng-repeat="member in family track by $index">
+                <tr ng-repeat="member in family | orderBy: (tabNav.isTab('Family') ? 'RoleIdx' : 'PointsIdx') track by $index">
                     <td width="10" align="center">
                         <img class="pull-left img-circle nav-user-photo" width="50" ng-src="{{getPhoto(member.ID)}}" />
                     </td>
@@ -29,7 +29,7 @@
                     </td>
                     <td style="position:relative">
                         <div  ng-if="tabNav.isTab('Family')" class="circle-tasks-number">{{member.TaskCount}}</div>
-                        <div  ng-if="tabNav.isTab('Leaderboard')" class="circle-tasks-rank">{{$index+1}}</div>
+                        <div  ng-if="tabNav.isTab('Leaderboard')" class="circle-tasks-rank">{{member.PointsIdx}}</div>
                     </td>
                 </tr>
             </tbody>

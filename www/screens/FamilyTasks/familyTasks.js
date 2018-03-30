@@ -20,6 +20,20 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         /***Variables***/
                         $scope.member = member;
                         $scope.family = Object.values(member.Family.FamilyMembers);
+                        for (var i = 0, j = 1; i < $scope.family.length; i++,j++) {
+                            if($scope.family[i].Role == 'Owner')
+                                $scope.family[i]["RoleIdx"] = 1;
+                            else if($scope.family[i].Role == 'Admin')
+                                $scope.family[i]["RoleIdx"] = 2;
+                            else
+                                $scope.family[i]["RoleIdx"] = 3;
+                        }
+                        $scope.memberInfo;
+                        firebase.database().ref('Members/').on('value',function(snap){
+                            if(snap.val()){
+                                $scope.memberInfo = Object.values(snap.val()).filter(o => o.Families.ID == $scope.member.Family.ID);
+                            }
+                        });
                         //console.log(member);
                         /***Functions***/
                         familyTasksCtrl.view.initFunctions();
@@ -214,6 +228,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         firebase.database().ref('Tasks/'+$scope.member.Families.ID+'/'+$scope[taskType][idx].ID).set(JSON.parse(angular.toJson($scope[taskType][idx])));
                         firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').once('value',function(snap){
                             var Points = snap.val() + $scope[taskType][idx].PointsWorth;
+                            if(Points < 0) Points = 0;
                             firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').set(Points);
                         });
                         safeApply($scope);
@@ -225,6 +240,7 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                         firebase.database().ref('Tasks/'+$scope.member.Families.ID+'/'+$scope[taskType][idx].ID).set(JSON.parse(angular.toJson($scope[taskType][idx])));
                         firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').once('value',function(snap){
                             var Points = snap.val() - $scope[taskType][idx].PointsWorth;
+                            if(Points < 0) Points = 0;
                             firebase.database().ref('Families/'+$scope.member.Families.ID+'/FamilyMembers/'+$scope.member.uid+'/Points').set(Points);
                         });
                         safeApply($scope);
@@ -279,6 +295,11 @@ controller.controller('familyTasksCtrl', function ($scope, $stateParams, authSer
                     var today = new Date();
                     var isPast = new Date(date);
                     return (today.getTime() > isPast.getTime());
+                };
+                $scope.getPhoto = function(uid){
+                    if(!$scope.memberInfo) return "https://firebasestorage.googleapis.com/v0/b/familytasksmanager.appspot.com/o/default_user_icon.png?alt=media&token=813a45a9-ee2c-47c6-9096-2d51f27638ef";
+                    var r = $scope.memberInfo.filter(o => o.ID == uid)[0].photoURL;
+                    return r;
                 };
             },
             initWatches: function(){

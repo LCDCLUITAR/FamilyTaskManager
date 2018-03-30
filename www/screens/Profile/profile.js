@@ -52,6 +52,7 @@ controller.controller('profileCtrl', function ($scope, $stateParams, authService
                 });
             },
             initVariables: function(){
+                $scope.isEdit = false;
                 $scope.new = {
                     Name: $scope.member.displayName,
                     oldEmail: $scope.member.email,
@@ -64,6 +65,14 @@ controller.controller('profileCtrl', function ($scope, $stateParams, authService
                 };
             },
             initFunctions: function(){
+                $scope.edit = {
+                    isEdit: function(){
+                        return $scope.isEdit;
+                    },
+                    setEdit: function(mode){
+                        $scope.isEdit = mode;
+                    }
+                };
                 $scope.updateMyProfile = function(newData){
                     newData.photoURL = $scope.photoURL;
                     var profiledata = newData;
@@ -107,6 +116,20 @@ controller.controller('profileCtrl', function ($scope, $stateParams, authService
                         $scope.photoURL = downloadURL;
                         safeApply($scope);
                     });
+                };
+                $scope.logout = function(){
+                  authService.logout();
+                };
+                $scope.deleteProfile = function(){
+                    function processDeletion(res){
+                        if(res){
+                            authService.deleteProfile();
+                            $timeout(function(){
+                                msgService.showSuccess("Deleted", "Profile has been deleted!");
+                            },500);
+                        }
+                    };
+                    msgService.showConfirmProfileDeletion(processDeletion);
                 };
             },
             initWatches: function(){
